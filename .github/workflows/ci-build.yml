@@ -136,6 +136,12 @@ jobs:
         uses: actions/checkout@v2
       - name: Install Poetry
         run: pip install poetry==1.1.9
+
+      #- name: Edit Poetry cache directory
+        #run: poetry config cache-dir /home/runner/work/datagateway-api/datagateway-api/.nox
+      - name: Edit Poetry venvs path
+        run: poetry config virtualenvs.path /home/runner/work/datagateway-api/datagateway-api/.nox/lint
+
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
@@ -157,6 +163,8 @@ jobs:
     steps:
       - name: Checkout DataGateway API
         uses: actions/checkout@v2
+      - name: Install Poetry
+        run: pip install poetry==1.1.9
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
