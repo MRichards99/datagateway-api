@@ -17,6 +17,9 @@ jobs:
       - name: Add apt repo
         run: sudo add-apt-repository universe
 
+      - name: Checkout DataGateway API
+        uses: actions/checkout@v2
+
       # Setup Java & Python
       - name: Setup Java
         uses: actions/setup-java@v1
@@ -78,9 +81,6 @@ jobs:
         run: |
           cd /home/runner/install/icat.server/ && ./setup -vv install
 
-      - name: Checkout DataGateway API
-        uses: actions/checkout@v2
-
       # Prep for using the API for tests
       - name: Create log file
         run: touch logs.log
@@ -130,14 +130,14 @@ jobs:
     runs-on: ubuntu-20.04
     name: Linting
     steps:
+      - name: Checkout DataGateway API
+        uses: actions/checkout@v2
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
           python-version: "3.9.7"
           cache: 'poetry'
           architecture: x64
-      - name: Checkout DataGateway API
-        uses: actions/checkout@v2
 
       - name: Install Nox
         run: pip install nox==2020.8.22
@@ -151,14 +151,14 @@ jobs:
     runs-on: ubuntu-20.04
     name: Code Formatting
     steps:
+      - name: Checkout DataGateway API
+        uses: actions/checkout@v2
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
           python-version: "3.9.7"
           cache: 'poetry'
           architecture: x64
-      - name: Checkout DataGateway API
-        uses: actions/checkout@v2
 
       - name: Install Nox
         run: pip install nox==2020.8.22
@@ -172,14 +172,14 @@ jobs:
     runs-on: ubuntu-20.04
     name: Dependency Safety
     steps:
+      - name: Checkout DataGateway API
+        uses: actions/checkout@v2
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
           python-version: "3.9.7"
           cache: 'poetry'
           architecture: x64
-      - name: Checkout DataGateway API
-        uses: actions/checkout@v2
 
       - name: Install Nox
         run: pip install nox==2020.8.22
@@ -196,6 +196,9 @@ jobs:
     steps:
       - name: Add apt repo
         run: sudo add-apt-repository universe
+
+      - name: Checkout DataGateway API
+        uses: actions/checkout@v2
 
       # Setup Java & Python
       - name: Setup Java
@@ -246,9 +249,6 @@ jobs:
       - name: Run ICAT Ansible Playbook
         run: |
           ansible-playbook icat-ansible/icatdb_minimal_hosts.yml -i icat-ansible/hosts --vault-password-file icat-ansible/vault_pass.txt -vv
-
-      - name: Checkout DataGateway API
-        uses: actions/checkout@v2
 
       - name: Create config.json
         run: cp datagateway_api/config.json.example datagateway_api/config.json
