@@ -11,8 +11,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
-    name: Python ${{ matrix.python-version }} Build & Tests
+        python-version: [["3.6", "3-6"], ["3.7", "3-7"], ["3.8", "3-8"], ["3.9", "3-9"], ["3.10", "3-10"]]
+    name: Python ${{ matrix.python-version[0] }} Build & Tests
     steps:
       - name: Add apt repo
         run: sudo add-apt-repository universe
@@ -31,7 +31,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: ${{ matrix.python-version[0] }}
           cache: 'poetry'
           architecture: x64
 
@@ -123,9 +123,13 @@ jobs:
 
       # Run Nox tests session, saves and uploads a coverage report to codecov
       - name: Run Nox tests session
-        run: nox -p ${{ matrix.python-version }} -s tests -- --cov=datagateway_api --cov-report=xml
+        run: nox -p ${{ matrix.python-version[0] }} -s tests -- --cov=datagateway_api --cov-report=xml
+        uses: actions/cache@v2
+        with:
+          path: /home/runner/work/datagateway-api/datagateway-api/.nox/tests-${{ matrix.python-version[1] }}
+          key: ${{ runner.os }}-poetry-nox-${{ hashFiles('poetry.lock') }}
       - name: Upload code coverage report
-        if: matrix.python-version == '3.6'
+        if: matrix.python-version[0] == '3.6'
         uses: codecov/codecov-action@v1
 
   linting:
