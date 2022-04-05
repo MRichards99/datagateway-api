@@ -137,8 +137,8 @@ jobs:
       - name: Install Poetry
         run: pip install poetry==1.1.9
 
-      #- name: Edit Poetry cache directory
-        #run: poetry config cache-dir /home/runner/work/datagateway-api/datagateway-api/.nox
+      - name: Edit Poetry cache directory
+        run: poetry config cache-dir /home/runner/work/datagateway-api/datagateway-api/.nox
       - name: Edit Poetry venvs path
         run: poetry config virtualenvs.path /home/runner/work/datagateway-api/datagateway-api/.nox/lint
 
