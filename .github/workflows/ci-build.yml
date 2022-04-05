@@ -26,6 +26,8 @@ jobs:
         with:
           java-version: 8
           java-package: jdk
+      - name: Install Poetry
+        run: pip install poetry==1.1.9
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
@@ -95,8 +97,8 @@ jobs:
       # Install Nox, Poetry and API's dependencies
       - name: Install Nox
         run: pip install nox==2020.8.22
-      - name: Install Poetry
-        run: pip install poetry==1.1.9
+      #- name: Install Poetry
+        #run: pip install poetry==1.1.9
 
       # Installing an older version of setuptools for reasons explained at: https://github.com/icatproject/python-icat/issues/99
       - name: Uninstall setuptools
@@ -132,6 +134,8 @@ jobs:
     steps:
       - name: Checkout DataGateway API
         uses: actions/checkout@v2
+      - name: Install Poetry
+        run: pip install poetry==1.1.9
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
@@ -162,8 +166,8 @@ jobs:
 
       - name: Install Nox
         run: pip install nox==2020.8.22
-      - name: Install Poetry
-        run: pip install poetry==1.1.9
+      #- name: Install Poetry
+        #run: pip install poetry==1.1.9
 
       - name: Run Nox black session
         run: nox -s black
@@ -174,6 +178,8 @@ jobs:
     steps:
       - name: Checkout DataGateway API
         uses: actions/checkout@v2
+      - name: Install Poetry
+        run: pip install poetry==1.1.9
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
@@ -183,8 +189,8 @@ jobs:
 
       - name: Install Nox
         run: pip install nox==2020.8.22
-      - name: Install Poetry
-        run: pip install poetry==1.1.9
+      #- name: Install Poetry
+        #run: pip install poetry==1.1.9
 
       - name: Run Nox safety session
         run: nox -s safety
@@ -206,6 +212,8 @@ jobs:
         with:
           java-version: 8
           java-package: jdk
+      - name: Install Poetry
+        run: pip install poetry==1.1.9
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
@@ -254,8 +262,8 @@ jobs:
         run: cp datagateway_api/config.json.example datagateway_api/config.json
       - name: Create search_api_mapping.json
         run: cp datagateway_api/search_api_mapping.json.example datagateway_api/search_api_mapping.json
-      - name: Install Poetry
-        run: pip install poetry==1.1.9
+      #- name: Install Poetry
+        #run: pip install poetry==1.1.9
 
       # Installing an older version of setuptools for reasons explained at: https://github.com/icatproject/python-icat/issues/99
       - name: Uninstall setuptools
