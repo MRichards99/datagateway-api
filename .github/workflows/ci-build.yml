@@ -38,7 +38,7 @@ jobs:
           path: icat-ansible
       - name: Get HEAD commit hash
         id: icat-ansible-hash
-        run: echo "::set-output name=commit-hash::$(git rev-parse --short HEAD)"
+        run: echo "::set-output name=commit-hash::$(git -C icat-ansible/ rev-parse --short HEAD)"
 
 
       - name: Setup Python
