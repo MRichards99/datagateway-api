@@ -43,12 +43,6 @@ jobs:
           cache: 'poetry'
           architecture: x64
 
-      - name: Cache Pip dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('icat-ansible/requirements.txt') }}
-
       # ICAT Ansible clone and install dependencies
       - name: Checkout icat-ansible
         uses: actions/checkout@v2
@@ -56,6 +50,13 @@ jobs:
           repository: icatproject-contrib/icat-ansible
           ref: master
           path: icat-ansible
+
+      - name: Cache Pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('icat-ansible/requirements.txt') }}
+
       - name: Install Ansible
         run: pip install -r icat-ansible/requirements.txt
 
