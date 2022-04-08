@@ -27,8 +27,8 @@ jobs:
         with:
           java-version: 8
           java-package: jdk
-      #- name: Install Poetry
-        #run: pip install poetry==1.1.9
+      - name: Install Poetry
+        run: pip install poetry==1.1.9
 
       - name: Checkout icat-ansible
         uses: actions/checkout@v2
@@ -125,8 +125,8 @@ jobs:
       # Install Nox, Poetry and API's dependencies
       - name: Install Nox
         run: pip install nox==2020.8.22
-      - name: Install Poetry
-        run: pip install poetry==1.1.9
+      #- name: Install Poetry
+        #run: pip install poetry==1.1.9
 
       # TODO - fix, not working any more
       #- name: Cache Poetry dependencies
