@@ -76,6 +76,21 @@ jobs:
           sudo apt-get remove --purge "mysql*"
           sudo rm -rf /var/lib/mysql* /etc/mysql
 
+      # TODO - change to v3 elsewhere
+      - name: Cache ICAT dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/bin
+            ~/data
+            ~/downloads
+            ~/install
+            ~/payara*
+            ~/scripts
+            ~/unpackage
+          key: ${{ runner.os }}-yarn-${{ hashFiles('icat-ansible/**') }}
+
+
       # Create local instance of ICAT
       - name: Run ICAT Ansible Playbook
         run: |
