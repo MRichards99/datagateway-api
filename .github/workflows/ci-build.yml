@@ -36,12 +36,17 @@ jobs:
           repository: icatproject-contrib/icat-ansible
           ref: master
           path: icat-ansible
+      - name: Get HEAD commit hash
+        id: icat-ansible-hash
+        run: echo "::set-output name=commit-hash::$(git rev-parse --short HEAD)"
+
 
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version[0] }}
           cache: 'pip'
+          cache-dependency-path: 'icat-ansible/requirements.txt'
           architecture: x64
 
       # ICAT Ansible clone and install dependencies
@@ -88,7 +93,7 @@ jobs:
             ~/payara*
             ~/scripts
             ~/unpackage
-          key: ${{ runner.os }}-yarn-${{ hashFiles('icat-ansible/**') }}
+          key: ${{ runner.os }}-icat-${{ steps.icat-ansible-hash.outputs.commit-hash }}
 
 
       # Create local instance of ICAT
@@ -124,6 +129,7 @@ jobs:
       - name: Install Poetry
         run: pip install poetry==1.1.9
 
+      # TODO - fix, not working any more
       - name: Cache Poetry dependencies
         uses: actions/cache@v2
         with:
