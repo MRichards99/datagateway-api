@@ -29,6 +29,14 @@ jobs:
           java-package: jdk
       #- name: Install Poetry
         #run: pip install poetry==1.1.9
+
+      - name: Checkout icat-ansible
+        uses: actions/checkout@v2
+        with:
+          repository: icatproject-contrib/icat-ansible
+          ref: master
+          path: icat-ansible
+
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
@@ -37,12 +45,12 @@ jobs:
           architecture: x64
 
       # ICAT Ansible clone and install dependencies
-      - name: Checkout icat-ansible
-        uses: actions/checkout@v2
-        with:
-          repository: icatproject-contrib/icat-ansible
-          ref: master
-          path: icat-ansible
+      #- name: Checkout icat-ansible
+      #  uses: actions/checkout@v2
+      #  with:
+      #    repository: icatproject-contrib/icat-ansible
+      #    ref: master
+      #    path: icat-ansible
       - name: Install Ansible
         run: pip install -r icat-ansible/requirements.txt
 
