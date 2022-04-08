@@ -26,13 +26,13 @@ jobs:
         with:
           java-version: 8
           java-package: jdk
-      - name: Install Poetry
-        run: pip install poetry==1.1.9
+      #- name: Install Poetry
+        #run: pip install poetry==1.1.9
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version[0] }}
-          cache: 'poetry'
+          cache: 'pip'
           architecture: x64
 
       # ICAT Ansible clone and install dependencies
@@ -97,8 +97,14 @@ jobs:
       # Install Nox, Poetry and API's dependencies
       - name: Install Nox
         run: pip install nox==2020.8.22
-      #- name: Install Poetry
-        #run: pip install poetry==1.1.9
+      - name: Install Poetry
+        run: pip install poetry==1.1.9
+
+      - name: Cache Poetry dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pypoetry/virtualenvs
+          key: ${{ runner.os }}-poetry-${{ hashFiles('poetry.lock') }}
 
       # Installing an older version of setuptools for reasons explained at: https://github.com/icatproject/python-icat/issues/99
       - name: Uninstall setuptools
@@ -121,6 +127,7 @@ jobs:
         run: |
           poetry run python -m util.icat_db_generator
 
+      # TODO - test using a glob after .nox/ so I can remove the python-version list stuff
       - name: Cache Nox tests session venv
         uses: actions/cache@v2
         with:
@@ -152,7 +159,7 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: "3.9.7"
-          cache: 'poetry'
+          cache: 'pip'
           architecture: x64
 
       - name: Install Nox
@@ -175,7 +182,7 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: "3.9.7"
-          cache: 'poetry'
+          cache: 'pip'
           architecture: x64
 
       - name: Install Nox
@@ -198,7 +205,7 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: "3.9.7"
-          cache: 'poetry'
+          cache: 'pip'
           architecture: x64
 
       - name: Install Nox
@@ -232,7 +239,7 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: "3.9.7"
-          cache: 'poetry'
+          cache: 'pip'
           architecture: x64
 
       # ICAT Ansible clone and install dependencies
