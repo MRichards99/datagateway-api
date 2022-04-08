@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+      - ci/poetry-cache
 jobs:
   tests:
     runs-on: ubuntu-20.04
